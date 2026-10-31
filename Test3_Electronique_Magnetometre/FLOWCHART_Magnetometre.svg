@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="880" viewBox="0 0 1120 880" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="880" fill="#ffffff"/>
+  <text x="30" y="32" font-size="18" font-weight="bold" fill="#111">Test Électronique #1 — Flowchart de récupération des mesures magnétiques (100 Hz)</text>
+  <text x="30" y="50" font-size="12" fill="#555">Fonctions génériques readSPI / writeSPI vers le CS5509 ; pulses set/reset du HMC1001 par GPIO</text>
+
+  <!-- colonne init -->
+  <rect x="40" y="80" width="300" height="360" rx="8" fill="#f7f7ff" stroke="#5b3d8f" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="60" y="104" font-size="13" font-weight="bold" fill="#5b3d8f">INITIALISATION (une fois, au démarrage)</text>
+
+  <rect x="60" y="120" width="260" height="44" rx="6" fill="#ffffff" stroke="#5b3d8f" stroke-width="1.5"/>
+  <text x="80" y="146" font-size="11" fill="#111">writeSPI(CS5509, CONFIG) : taux de mot</text>
+  <text x="80" y="159" font-size="11" fill="#111">≈ 200 Hz (2 conversions / échantillon)</text>
+
+  <line x1="190" y1="164" x2="190" y2="182" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="60" y="182" width="260" height="44" rx="6" fill="#ffffff" stroke="#5b3d8f" stroke-width="1.5"/>
+  <text x="80" y="208" font-size="11" fill="#111">writeSPI(CS5509, CALIBRATE)</text>
+  <text x="80" y="221" font-size="11" fill="#111">auto-calibration interne du CS5509</text>
+
+  <line x1="190" y1="226" x2="190" y2="244" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="60" y="244" width="260" height="44" rx="6" fill="#ffffff" stroke="#5b3d8f" stroke-width="1.5"/>
+  <text x="80" y="270" font-size="11" fill="#111">readSPI(CS5509) : lecture de config,</text>
+  <text x="80" y="283" font-size="11" fill="#111">vérification (statut/calibration OK)</text>
+
+  <line x1="190" y1="288" x2="190" y2="306" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="60" y="306" width="260" height="44" rx="6" fill="#ffffff" stroke="#5b3d8f" stroke-width="1.5"/>
+  <text x="80" y="332" font-size="11" fill="#111">GPIO_SET / GPIO_RESET : 1 pulse chacun</text>
+  <text x="80" y="345" font-size="11" fill="#111">(test de l'étage, mesure à vide)</text>
+
+  <line x1="190" y1="350" x2="190" y2="386" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+  <polygon points="190,386 128,418 190,450 252,418" fill="#fffbe8" stroke="#8a7317" stroke-width="1.5"/>
+  <text x="152" y="414" font-size="11" fill="#8a7317">config et cal.</text>
+  <text x="155" y="428" font-size="11" fill="#8a7317">validées ?</text>
+  <line x1="252" y1="418" x2="310" y2="418" stroke="#a33" stroke-width="1.5"/>
+  <text x="258" y="410" font-size="10" fill="#a33">non → erreur</text>
+
+  <!-- transition vers boucle -->
+  <line x1="190" y1="450" x2="190" y2="480" stroke="#222" stroke-width="1.5"/>
+  <line x1="190" y1="480" x2="470" y2="480" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="200" y="472" font-size="10" fill="#333">oui</text>
+
+  <!-- colonne boucle -->
+  <rect x="470" y="80" width="400" height="760" rx="8" fill="#f4fbf4" stroke="#1f7a33" stroke-width="1.5"/>
+  <text x="490" y="104" font-size="13" font-weight="bold" fill="#1f7a33">BOUCLE DE MESURE (répétée à 100 Hz ±10 Hz)</text>
+
+  <polygon points="670,470 620,500 670,530 720,500" fill="#eeeeee" stroke="#222" stroke-width="1.5"/>
+  <text x="632" y="496" font-size="11" fill="#111">tick 10 ms</text>
+  <text x="640" y="510" font-size="11" fill="#111">(timer)</text>
+  <line x1="670" y1="530" x2="670" y2="560" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="500" y="560" width="340" height="46" rx="6" fill="#ffffff" stroke="#1f7a33" stroke-width="1.5"/>
+  <text x="520" y="580" font-size="11" fill="#111">GPIO_SET = 1 → 0  (pulse SET, 1–2 µs, ~1 A</text>
+  <text x="520" y="594" font-size="11" fill="#111">dans le strap : aimantation saturée dans un sens)</text>
+  <line x1="670" y1="606" x2="670" y2="630" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="500" y="630" width="340" height="40" rx="6" fill="#ffffff" stroke="#1f7a33" stroke-width="1.5"/>
+  <text x="520" y="654" font-size="11" fill="#111">attente stabilisation (ampli + filtre : ~100 µs)</text>
+  <line x1="670" y1="670" x2="670" y2="694" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="500" y="694" width="340" height="52" rx="6" fill="#ffffff" stroke="#1f7a33" stroke-width="1.5"/>
+  <text x="520" y="714" font-size="11" fill="#111">attendre donnée prête (DRDY / fin conversion)</text>
+  <text x="520" y="728" font-size="11" fill="#111">puis valSET = readSPI(CS5509)  (16 bits)</text>
+  <line x1="670" y1="746" x2="670" y2="770" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <rect x="500" y="770" width="340" height="52" rx="6" fill="#ffffff" stroke="#1f7a33" stroke-width="1.5"/>
+  <text x="520" y="790" font-size="11" fill="#111">GPIO_RESET = 1 → 0  (pulse RESET)</text>
+  <text x="520" y="804" font-size="11" fill="#111">→ attente stabilisation → valRESET = readSPI()</text>
+  <line x1="840" y1="796" x2="880" y2="796" stroke="#222" stroke-width="1.5"/>
+  <line x1="880" y1="796" x2="880" y2="140" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+
+  <!-- colonne calcul -->
+  <rect x="920" y="80" width="170" height="500" rx="8" fill="#fff8ee" stroke="#b06a00" stroke-width="1.5"/>
+  <text x="936" y="104" font-size="13" font-weight="bold" fill="#b06a00">EXPLOITATION</text>
+
+  <rect x="936" y="120" width="138" height="60" rx="6" fill="#ffffff" stroke="#b06a00" stroke-width="1.5"/>
+  <text x="948" y="140" font-size="11" fill="#111">mesure =</text>
+  <text x="948" y="155" font-size="11" fill="#111">(valSET − valRESET)/2</text>
+  <text x="948" y="170" font-size="9" fill="#777">annule offset pont</text>
+
+  <line x1="1005" y1="180" x2="1005" y2="200" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="936" y="200" width="138" height="52" rx="6" fill="#ffffff" stroke="#b06a00" stroke-width="1.5"/>
+  <text x="948" y="220" font-size="11" fill="#111">B [µG] = mesure</text>
+  <text x="948" y="235" font-size="11" fill="#111">× facteur de calib.</text>
+  <text x="948" y="246" font-size="9" fill="#777">(banc : bobine connue)</text>
+
+  <line x1="1005" y1="252" x2="1005" y2="272" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="936" y="272" width="138" height="66" rx="6" fill="#ffffff" stroke="#b06a00" stroke-width="1.5"/>
+  <text x="948" y="292" font-size="11" fill="#111">datation :</text>
+  <text x="948" y="307" font-size="11" fill="#111">t = getTime()</text>
+  <text x="948" y="322" font-size="11" fill="#111">(Test code #1)</text>
+
+  <line x1="1005" y1="338" x2="1005" y2="360" stroke="#222" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="936" y="360" width="138" height="60" rx="6" fill="#ffffff" stroke="#b06a00" stroke-width="1.5"/>
+  <text x="948" y="380" font-size="11" fill="#111">stockage / envoi</text>
+  <text x="948" y="396" font-size="11" fill="#111">(buffer circulaire,</text>
+  <text x="948" y="411" font-size="11" fill="#111">Test code #2)</text>
+
+  <text x="936" y="470" font-size="10" fill="#555">2 conversions / tick à</text>
+  <text x="936" y="484" font-size="10" fill="#555">200 sps → 1 mesure</text>
+  <text x="936" y="498" font-size="10" fill="#555">complète / 10 ms = 100 Hz</text>
+
+  <!-- liens colonnes -->
+  <line x1="840" y1="720" x2="936" y2="150" stroke="#b06a00" stroke-width="0"/>
+  <line x1="936" y1="150" x2="840" y2="720" stroke="none"/>
+
+  <rect x="40" y="520" width="300" height="180" rx="8" fill="#fafafa" stroke="#999"/>
+  <text x="56" y="544" font-size="11" font-weight="bold" fill="#333">Points-clés du flowchart</text>
+  <text x="56" y="566" font-size="10" fill="#333">• SET puis RESET à chaque échantillon : la</text>
+  <text x="56" y="580" font-size="10" fill="#333">   demi-différence annule l'offset de pont et les</text>
+  <text x="56" y="594" font-size="10" fill="#333">   dérives thermiques (technique Honeywell AN-212).</text>
+  <text x="56" y="614" font-size="10" fill="#333">• Le taux d'échantillonnage est fixé par le timer</text>
+  <text x="56" y="628" font-size="10" fill="#333">   µC (100 Hz ±10 Hz) — pas par l'arrivée des données.</text>
+  <text x="56" y="648" font-size="10" fill="#333">• writeSPI n'est utilisé qu'en init/configuration :</text>
+  <text x="56" y="662" font-size="10" fill="#333">   readSPI ramène les 16 bits de conversion.</text>
+  <text x="56" y="682" font-size="10" fill="#333">• Erreurs SPI / données prêtes : compteur + rejet</text>
+  <text x="56" y="696" font-size="10" fill="#333">   de l'échantillon (jamais de valeur fausse).</text>
+</svg>

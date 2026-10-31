@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="840" viewBox="0 0 1180 840" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1180" height="840" fill="#ffffff"/>
+  <text x="30" y="34" font-size="19" font-weight="bold" fill="#111">Test Électronique #1 — Mesure du champ magnétique : HMC1001 → AD623 → CS5509</text>
+  <text x="30" y="52" font-size="12" fill="#555">Amplitude [−2 G, +2 G] — échantillonnage 100 Hz ±10 Hz — pilotage par circuit de logique évolué (µC)</text>
+
+  <!-- RAILS -->
+  <line x1="30" y1="90" x2="1150" y2="90" stroke="#cc2222" stroke-width="2.5"/>
+  <text x="36" y="84" font-size="12" font-weight="bold" fill="#cc2222">+5 V (alim. de bureau)</text>
+  <line x1="30" y1="770" x2="1150" y2="770" stroke="#111111" stroke-width="2.5"/>
+  <text x="36" y="786" font-size="12" font-weight="bold" fill="#111">GND (masse commune)</text>
+  <line x1="30" y1="120" x2="1150" y2="120" stroke="#e08800" stroke-width="2.5"/>
+  <text x="36" y="114" font-size="12" font-weight="bold" fill="#e08800">+3,3 V (alim. de bureau, logique µC)</text>
+
+  <!-- HMC1001 -->
+  <rect x="90" y="230" width="180" height="150" rx="6" fill="#eef6ff" stroke="#1a4d8f" stroke-width="2"/>
+  <text x="112" y="252" font-size="14" font-weight="bold" fill="#1a4d8f">U2 : HMC1001</text>
+  <text x="112" y="268" font-size="11" fill="#1a4d8f">capteur AMR 1 axe, ±2 G</text>
+  <!-- pins -->
+  <text x="98" y="292" font-size="11" fill="#111">Vbridge (5 V)</text>
+  <text x="98" y="316" font-size="11" fill="#111">OUT+ / OUT−</text>
+  <text x="98" y="340" font-size="11" fill="#111">S/R+ (strap 4,5 Ω)</text>
+  <text x="98" y="364" font-size="11" fill="#111">S/R−</text>
+  <line x1="90" y1="286" x2="30" y2="286" stroke="#cc2222" stroke-width="2"/>
+  <text x="46" y="280" font-size="10" fill="#cc2222">+5V</text>
+
+  <!-- pont de Wheatstone -->
+  <g stroke="#1a4d8f" stroke-width="1.5" fill="none">
+    <rect x="196" y="298" width="58" height="46" rx="4"/>
+  </g>
+  <text x="206" y="316" font-size="9" fill="#1a4d8f">pont AMR</text>
+  <text x="206" y="330" font-size="9" fill="#1a4d8f">16 mV/G @5V</text>
+
+  <!-- lines OUT to AD623 -->
+  <line x1="270" y1="310" x2="420" y2="300" stroke="#1a4d8f" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="300" y="298" font-size="10" fill="#1a4d8f">OUT+ (analogique, ±32 mV max)</text>
+  <line x1="270" y1="330" x2="420" y2="330" stroke="#1a4d8f" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="300" y="348" font-size="10" fill="#1a4d8f">OUT−</text>
+
+  <!-- H bridge S/R -->
+  <rect x="80" y="440" width="230" height="180" rx="6" fill="#f4eeff" stroke="#5b3d8f" stroke-width="2"/>
+  <text x="96" y="462" font-size="13" font-weight="bold" fill="#5b3d8f">Étage set/reset (pulses 1–2 µs)</text>
+  <text x="96" y="480" font-size="10" fill="#5b3d8f">Q1 2SJ351 / Q2 AO3400 / Q3 2SJ351 / Q4 AO3400</text>
+  <text x="96" y="496" font-size="10" fill="#5b3d8f">portes pilotées en opposition (Rg 47 Ω)</text>
+  <text x="96" y="512" font-size="10" fill="#5b3d8f">C_stock 10 µF // 100 nF près du strap</text>
+  <text x="96" y="528" font-size="10" fill="#5b3d8f">I_pulse ≈ 1 A (5 V / 4,5 Ω), durée < 2 µs</text>
+  <line x1="80" y1="452" x2="30" y2="452" stroke="#cc2222" stroke-width="2" transform="translate(0,-18)"/>
+  <text x="40" y="440" font-size="10" fill="#cc2222">+5V</text>
+  <!-- connection strap -->
+  <line x1="150" y1="440" x2="150" y2="380" stroke="#5b3d8f" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="160" y="415" font-size="10" fill="#5b3d8f">S/R+ → strap</text>
+  <line x1="240" y1="440" x2="240" y2="380" stroke="#5b3d8f" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="250" y="415" font-size="10" fill="#5b3d8f">S/R− → strap</text>
+  <!-- GPIO lines -->
+  <line x1="310" y1="560" x2="620" y2="560" stroke="#5b3d8f" stroke-width="2" marker-end="url(#ar)" stroke-dasharray="6 3"/>
+  <line x1="310" y1="580" x2="620" y2="580" stroke="#5b3d8f" stroke-width="2" marker-end="url(#ar)" stroke-dasharray="6 3"/>
+  <text x="330" y="554" font-size="10" fill="#5b3d8f">GPIO_SET (3,3 V)</text>
+  <text x="330" y="596" font-size="10" fill="#5b3d8f">GPIO_RESET (3,3 V)</text>
+
+  <!-- AD623 -->
+  <rect x="420" y="230" width="190" height="150" rx="6" fill="#eefff0" stroke="#1f7a33" stroke-width="2"/>
+  <text x="448" y="252" font-size="14" font-weight="bold" fill="#1f7a33">U3 : AD623</text>
+  <text x="448" y="268" font-size="11" fill="#1f7a33">ampli. d'instrumentation</text>
+  <text x="448" y="292" font-size="11" fill="#111">RG = 2,55 kΩ (G ≈ 40)</text>
+  <text x="448" y="310" font-size="11" fill="#111">→ 640 mV/G</text>
+  <text x="448" y="334" font-size="11" fill="#111">REF = 2,5 V (U4)</text>
+  <text x="448" y="352" font-size="11" fill="#111">V+ = 5 V, sortie RRIO</text>
+  <line x1="420" y1="244" x2="30" y2="244" stroke="#cc2222" stroke-width="0" />
+  <text x="360" y="240" font-size="10" fill="#cc2222">+5V</text>
+
+  <!-- REF192 -->
+  <rect x="450" y="430" width="150" height="86" rx="6" fill="#fffbe8" stroke="#8a7317" stroke-width="2"/>
+  <text x="472" y="452" font-size="13" font-weight="bold" fill="#8a7317">U4 : REF192-2.5</text>
+  <text x="472" y="470" font-size="10" fill="#8a7317">référence 2,5 V</text>
+  <text x="472" y="486" font-size="10" fill="#8a7317">C 100 nF + 10 µF</text>
+  <line x1="480" y1="430" x2="480" y2="90" stroke="#cc2222" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="488" y="180" font-size="10" fill="#cc2222">+5 V</text>
+  <line x1="560" y1="430" x2="560" y2="380" stroke="#8a7317" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="568" y="400" font-size="10" fill="#8a7317">2,5 V → REF (U3) et AIN− (U5)</text>
+  <line x1="470" y1="516" x2="470" y2="770" stroke="#111" stroke-width="1.5"/>
+
+  <!-- analog out to ADC -->
+  <line x1="610" y1="300" x2="780" y2="300" stroke="#1a4d8f" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="620" y="292" font-size="10" fill="#1a4d8f">V_OUT = 2,5 V ± 1,6 V (±2 G @ G≈40)</text>
+
+  <!-- CS5509 -->
+  <rect x="780" y="230" width="200" height="190" rx="6" fill="#fdeeee" stroke="#a33" stroke-width="2"/>
+  <text x="806" y="252" font-size="14" font-weight="bold" fill="#a33">U5 : CS5509</text>
+  <text x="806" y="268" font-size="10" fill="#a33">CAN ΣΔ 16 bits, 200 sps max,</text>
+  <text x="806" y="282" font-size="10" fill="#a33">différentiel, auto-calibration</text>
+  <text x="806" y="306" font-size="11" fill="#111">AIN+ ← AD623</text>
+  <text x="806" y="324" font-size="11" fill="#111">AIN− ← 2,5 V</text>
+  <text x="806" y="342" font-size="11" fill="#111">VA+ = VD+ = 5 V</text>
+  <text x="806" y="360" font-size="11" fill="#111">X1 : quartz d'horloge</text>
+  <text x="806" y="378" font-size="11" fill="#111">SCLK, CS, SDATA (série)</text>
+  <text x="806" y="396" font-size="10" fill="#555">Découplage 100 nF sur chaque alim</text>
+  <line x1="820" y1="230" x2="820" y2="90" stroke="#cc2222" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="828" y="180" font-size="10" fill="#cc2222">+5 V</text>
+  <line x1="900" y1="420" x2="900" y2="770" stroke="#111" stroke-width="1.5"/>
+
+  <!-- µC -->
+  <rect x="700" y="610" width="330" height="110" rx="6" fill="#f0f0f4" stroke="#333" stroke-width="2"/>
+  <text x="730" y="634" font-size="14" font-weight="bold" fill="#111">U1 : circuit de logique évolué (µC, ex. dsPIC33)</text>
+  <text x="716" y="656" font-size="11" fill="#333">• Timer 100 Hz (période 10 ms ±1 ms)</text>
+  <text x="716" y="672" font-size="11" fill="#333">• GPIO SET / RESET (pulses alternés)</text>
+  <text x="716" y="688" font-size="11" fill="#333">• SPI maître (lecture conversions + configuration)</text>
+  <text x="716" y="704" font-size="11" fill="#333">• datation des mesures : getTime() (Test code #1)</text>
+
+  <!-- level shifter -->
+  <rect x="620" y="470" width="180" height="80" rx="6" fill="#f4f9ff" stroke="#2b6cb0" stroke-width="2"/>
+  <text x="642" y="492" font-size="12" font-weight="bold" fill="#2b6cb0">U6 : 74HCT125 (tampons)</text>
+  <text x="642" y="510" font-size="10" fill="#2b6cb0">adaptation 3,3 V → 5 V (VIH = 2 V)</text>
+  <text x="642" y="526" font-size="10" fill="#2b6cb0">SDATA : broche 5V-tolerante ou pont 1k/2k</text>
+
+  <!-- SPI bus -->
+  <line x1="860" y1="470" x2="860" y2="610" stroke="#2b6cb0" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="800" y1="470" x2="800" y2="610" stroke="#2b6cb0" stroke-width="2" marker-start="url(#ar)"/>
+  <line x1="760" y1="470" x2="760" y2="610" stroke="#2b6cb0" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="700" y1="500" x2="800" y2="500" stroke="#2b6cb0" stroke-width="1.5"/>
+  <text x="868" y="560" font-size="10" fill="#2b6cb0" transform="rotate(-90 868 560)">CS</text>
+  <text x="742" y="560" font-size="10" fill="#2b6cb0">SCLK</text>
+  <text x="782" y="548" font-size="10" fill="#2b6cb0">MOSI</text>
+
+  <!-- note bas -->
+  <rect x="30" y="640" width="330" height="80" rx="6" fill="#fafafa" stroke="#999"/>
+  <text x="42" y="660" font-size="10" fill="#333">Chaîne : ±2 G × 16 mV/G × 40 = ±1,28 V autour de 2,5 V</text>
+  <text x="42" y="676" font-size="10" fill="#333">→ dans la dynamique 0,5–4,5 V de l'AD623 (5 V)</text>
+  <text x="42" y="692" font-size="10" fill="#333">Mesure set/reset : B = (V_SET − V_RESET) / 2 annule</text>
+  <text x="42" y="708" font-size="10" fill="#333">l'offset de pont et les dérives (cf. note explicative)</text>
+</svg>

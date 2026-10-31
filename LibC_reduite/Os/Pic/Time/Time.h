@@ -1,18 +1,18 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-///  @file		Time.h
+/// @file		Time.h
 ///  
-///  @brief		Gestion du temps
+/// @brief		Gestion du temps
 ///  
-///  @date		15/04/2014
-///  @author	N/A
-///  @copyright	SYSNAV
+/// @date		15/04/2014
+/// @author		Baptiste Marchand
+/// @copyright	SYSNAV
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #ifndef _TIME_H
 #define _TIME_H
 
 
 
-#include <Os/Common/Utils/GenericTypedefs.h>
+#include <Os/Common/Utils/GenericTypeDefs.h>
 
 void Time_Init(void);
 
@@ -20,4 +20,3 @@ Time getTime();
 
 
 #endif
-
